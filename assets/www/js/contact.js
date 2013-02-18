@@ -13,7 +13,6 @@
 		var fields = ["displayName", "photos"];
 		navigator.contacts.find(fields, onSuccess, onError, options);
 		
-		$('#liste_contact').listview('refresh');
 	}
 
 
@@ -30,11 +29,10 @@ console.log("Debut fonction success");
     		code = '<li><a href=""><img src="img/photo.jpg" class="photo">' + contacts[i].displayName + '</a></li>';
     	}
     	
-    	$("#liste_contact").html(
-    		$("#liste_contact").html() + code
-    	);
-    	
+    	$("#liste_contact").append(code);
     }
+    
+	$('#liste_contact').listview('refresh');
 }
 
 // onError: Failed to get the contacts
