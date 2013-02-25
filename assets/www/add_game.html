@@ -21,24 +21,23 @@
 		<div data-role="page" data-theme="a">
 
 			<div data-role="header">
-				<a href="index.html" data-icon="home">Accueil</a>
-				<h1>Contact</h1>
-				<a href="#" data-icon="plus" data-theme="b">Ajouter</a>
+				<a href="contact.html?" data-icon="home">Retour</a>
+				<h1>Ajouter un objet</h1>
+				<a href="#" data-icon="plus">Ajouter</a>
 			</div><!-- /header -->
 
 			<div data-role="content">
 
-				<img src="img/photo.jpg" class="photo_contact">
+				<form>
+				
+					 <label for="name">Nom :</label>
+					 <input name="name" id="name" value="" type="text">
+					 
+					 <label for="type">Type :</label>
+					 <input name="type" id="type" value="" type="text">
+					 
+				</form>
 
-				Jean-Mouloud<br>
-				<a href="tel:+33123456789"  data-role="button" data-mini="true" data-inline="true">Appeler</a>
-
-				<div class="liste">
-					<ul id="liste_jeux" data-role="listview" data-filter="true">
-						<li data-icon="delete"><a href=""><img src="img/photo.jpg" class="photo">Jeux 1</a></li>
-						<li data-icon="delete"><a href=""><img src="img/photo.jpg" class="photo">Jeux 2</a></li>
-					</ul>
-				</div>
 			</div><!-- /content -->
 			
 		</div><!-- /page -->
