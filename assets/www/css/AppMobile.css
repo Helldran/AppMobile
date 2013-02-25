@@ -1,0 +1,27 @@
+.photo
+{
+	width: 96px;
+	height: 96px;
+}
+
+.info_contact
+{
+	border: 1px solid #000000;
+	margin: 5px;
+}
+
+/* photo du contact sélectionné dans la page contact.html */
+.photo_contact
+{
+	width: 128px;
+	height: 128px;
+	border: 1px solid #000000;
+	float: left;
+	margin-right: 15px;
+	margin-bottom: 15px;
+}
+
+.liste
+{
+	clear: left;
+}
