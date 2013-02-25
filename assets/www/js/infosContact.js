@@ -4,24 +4,25 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // Cordova is ready
 function onDeviceReady() {
 
-	// find all contacts with 'Bob' in any name field
-	console.log("Debut javascript");
+	Name = extractUrlParams ("nom");
+	console.log("Le nom qui est retourne est : " + Name);
 	var options = new ContactFindOptions();
-	options.filter="";
+	options.filter= Name;
 	options.multiple = true;
-	var fields = ["displayName", "photos"];
+	var fields = ["displayName", "photos", "phoneNumbers", "id"];
 	navigator.contacts.find(fields, onSuccess, onError, options);
 	
 }
 
 
-function extractUrlParams () {
-	var t = location.search.substring(1).split('&');
-	var f = [];
-	for (var i=0; i<t.length; i++)
-	{
-		var x = t[ i ].split('=');
-		f[x[0]]=f[1];
-	}
-	return f;
+function extractUrlParams (name) {
+	console.log("Debut de la fonction getparam");
+	name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+    var regexS = "[\\?&]"+name+"=([^&#]*)";
+    var regex = new RegExp( regexS );
+    var results = regex.exec( window.location.href );
+    if( results == null )
+        return "";
+    else
+        return results[1];
 }
