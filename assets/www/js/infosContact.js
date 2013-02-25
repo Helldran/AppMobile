@@ -1,3 +1,5 @@
+var Id;
+
 // Wait for Cordova to load
 document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -13,22 +15,8 @@ function onDeviceReady() {
 	
 }
 
-
-function extractUrlParams (name) {
-	console.log("Debut de la fonction getparam");
-	name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-    var regexS = "[\\?&]"+name+"=([^&#]*)";
-    var regex = new RegExp( regexS );
-    var results = regex.exec( window.location.href );
-    if( results == null )
-        return "";
-    else
-        return results[1];
-}
-
 function onSuccessContact(contacts) {
 
-	console.log("Le contact est :" + contacts[0] );
 	if (contacts[0].photos && contacts[0].photos[0].type == "url") {
 		code = '<img src="'+contacts[0].photos[0].value+'" class="photo_contact">';
 					}
@@ -39,7 +27,7 @@ function onSuccessContact(contacts) {
 	if (contacts[0].phoneNumbers) 
 	{
 		code = code + contacts[0].displayName + '<br>'
-		  		 	+ '<a href="' + contacts[0].phoneNumbers[0].value + '"  data-role="button" data-mini="true" data-inline="true">Appeler</a>';
+		  		 	+ '<a href="tel:' + contacts[0].phoneNumbers[0].value + '"  data-role="button" data-inline="true">Appeler</a>';
 	}
 	else 
 	{
@@ -47,6 +35,10 @@ function onSuccessContact(contacts) {
 	}
 	
 	$("#info_contact").append(code);
+	
+	Id = contacts[0].id;
+	searchAllObject (Id, getInfos)
+	
     
 }
 
@@ -54,4 +46,18 @@ function onSuccessContact(contacts) {
 
 function onError(contactError) {
     alert('onError!');
+}
+
+function addObject()
+{
+	window.location = "add_object.html?id=Id";
+}
+
+var myFunction = function getInfos(results)
+{
+	var length = results.rows.length;
+	for (var i = 0 ; i < length ; i++)
+	{
+		code = '<li data-icon="delete"><a href=""><img src="img/photo.jpg" class="photo">' + results.rows.item(i).nomObjet + '</a></li>
+	}
 }

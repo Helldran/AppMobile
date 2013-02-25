@@ -8,7 +8,7 @@ function createDatabase()
 // Création de la base de donnée
 function createDB(tx)
 {
-     tx.executeSql('CREATE TABLE IF NOT EXISTS OBJECT (idObject integer primary key autoincrement, idContact, typeObjet, nomObjet, photoObjet)');
+    tx.executeSql('CREATE TABLE IF NOT EXISTS OBJECT (idObject integer primary key autoincrement, idContact, typeObjet, nomObjet, photoObjet)');
 }
 
 // Erreur à la connexion de la base de donnée
@@ -35,8 +35,8 @@ function addObject(idContact, typeObjet, nomObjet, photoObjet)
 // Ajout d'un objet
 function addObjectInDB(tx, idContact, typeObjet, nomObjet, photoObjet)
 {
-     tx.executeSql('INSERT INTO OBJECT (idContact, typeObjet, nomObjet, photoObjet) 
-     				VALUES (' + idContact + ',"' + typeObjet + '","' + nomObjet + '","' + photoObjet + '")');
+     tx.executeSql('INSERT INTO OBJECT (idContact, typeObjet, nomObjet, photoObjet)'+
+     				'VALUES (' + idContact + ',"' + typeObjet + '","' + nomObjet + '","' + photoObjet + '")');
 }
 
 // Erreur à l'ajout d'un objet

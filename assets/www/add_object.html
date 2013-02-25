@@ -13,7 +13,10 @@
 		<script type="text/javascript" src="js/jquery.mobile.js"></script>
         <script type="text/javascript" src="cordova-2.4.0.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
-		<script type="text/javascript" src="js/contact.js"></script>
+        <script type="text/javascript" src="js/parameter.js"></script>
+        <script type="text/javascript" src="js/database.js"></script>
+		<script type="text/javascript" src="js/ajoutPret.js"></script>
+		<script type="text/javascript" src="js/camera.js"></script>
 	</head>
 
 	<body> 
@@ -23,7 +26,7 @@
 			<div data-role="header">
 				<a href="contact.html?" data-icon="home">Retour</a>
 				<h1>Ajouter un objet</h1>
-				<a href="#" data-icon="plus">Ajouter</a>
+				<a href="#" onclick="javascript:addNew()" data-icon="plus">Ajouter</a>
 			</div><!-- /header -->
 
 			<div data-role="content">
@@ -36,17 +39,12 @@
 					 <label for="type">Type :</label>
 					 <input name="type" id="type" value="" type="text">
 					 
-					 <img src="img/photo.jpg" class="photo_jeu">
+					 <a href="" onClick="getPhoto('#photo_jeu')"><img src="img/photo.jpg" id="photo_jeu" class="photo_jeu"></a>
 				</form>
 
 			</div><!-- /content -->
 			
 		</div><!-- /page -->
 
-
-        <script type="text/javascript">
-            app.initialize();
-        </script>
-        
 	</body>
 </html>
