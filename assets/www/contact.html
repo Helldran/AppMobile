@@ -13,7 +13,7 @@
 		<script type="text/javascript" src="js/jquery.mobile.js"></script>
         <script type="text/javascript" src="cordova-2.4.0.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
-		<script type="text/javascript" src="js/listeContact.js"></script>
+		<script type="text/javascript" src="js/infosContact.js"></script>
 	</head>
 
 	<body> 
@@ -21,24 +21,27 @@
 		<div data-role="page" data-theme="a">
 
 			<div data-role="header">
-				<h1>Liste des contacts</h1>
+				<a href="index.html" data-icon="home">Accueil</a>
+				<h1>Contact</h1>
+				<a href="#" data-icon="plus" data-theme="b">Ajouter</a>
 			</div><!-- /header -->
 
 			<div data-role="content">
-				<ul id="liste_contact" data-role="listview" data-filter="true">
-				</ul>			
+
+				<div id="info_contact">
+				
+				</div>
+				
+				<div class="liste">
+					<ul id="liste_jeux" data-role="listview" data-filter="true">
+						<li data-icon="delete"><a href=""><img src="img/photo.jpg" class="photo">Jeux 1</a></li>
+						<li data-icon="delete"><a href=""><img src="img/photo.jpg" class="photo">Jeux 2</a></li>
+					</ul>
+				</div>
 			</div><!-- /content -->
-			
-			<!--<div data-role="footer">
-				<h4>Footer content</h4>
-			</div><!-- /footer -->
 			
 		</div><!-- /page -->
 
-
-        <script type="text/javascript">
-            app.initialize();
-        </script>
         
 	</body>
 </html>
