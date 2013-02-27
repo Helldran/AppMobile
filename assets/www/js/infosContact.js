@@ -8,7 +8,6 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
 
 	Name = extractUrlParams ("nom");
-	console.log(Name);
 	var options = new ContactFindOptions();
 	options.filter= Name;
 	options.multiple = true;
@@ -47,7 +46,11 @@ function onSuccessContact(contacts) {
 			code = '<li>'
 					+ '<a href=""><img src="img/appareil_photo.jpg" class="photo">'
 					+ results.rows.item(i).nomObjet + '</a>'
-					+ '<a href=""  onclick = javascript:remObject("' + results.rows.item(i).nomObjet + '",' + Id.valueOf() + ') data-icon="delete">Delete</a>'
+					+ '<a href="#" onclick="javascript:displayOn()" data-icon="delete"></a>'
+					+ '<div id="popupMenu" data-theme="d" style="display:none;">'
+					+ '<a href="#" onclick="javascript:returnToHome()" data-role="button" data-icon="home">Retour</a>'
+					+ '<a href="#" onclick="javascript:remObject(' +  results.rows.item(i).nomObjet + ',' + Id.valueOf() + ')" data-role="button" data-icon="delete">Supprimer</a>'
+					+ '</div>'
 					+ '</li>';
 			$("#liste_objet").append(code);
 		}
@@ -69,7 +72,7 @@ function addObject()
 
 function remObject (ObjectName, IdUser)
 {
-	console.log(ObjectName + IdUser);
+	
 	removeObject(IdUser, ObjectName);
 	window.location = "contact.html?nom=" + Name;
 }
@@ -77,4 +80,10 @@ function remObject (ObjectName, IdUser)
 function returnToHome()
 {
 	window.location = "index.html";
+}
+
+function displayOn()
+{
+	var popUp = document.getElementById("popupMenu");
+	popUp.style.display = "block";
 }
