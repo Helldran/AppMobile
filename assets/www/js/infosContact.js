@@ -44,9 +44,11 @@ function onSuccessContact(contacts) {
 		var length = results.rows.length;
 		for (var i = 0 ; i < length ; i++)
 		{
-			code = '<li data-icon="delete" onclick = javascript:remObject("' + results.rows.item(i).nomObjet + '",' + Id.valueOf() + ')>'
-					+ '<a href=""><img src="img/photo.jpg" class="photo">' + results.rows.item(i).nomObjet + '</a></li>';
-			console.log(code);
+			code = '<li>'
+					+ '<a href=""><img src="img/appareil_photo.jpg" class="photo">'
+					+ results.rows.item(i).nomObjet + '</a>'
+					+ '<a href=""  onclick = javascript:remObject("' + results.rows.item(i).nomObjet + '",' + Id.valueOf() + ') data-icon="delete">Delete</a>'
+					+ '</li>';
 			$("#liste_objet").append(code);
 		}
 		$('#liste_objet').listview('refresh');
@@ -70,4 +72,9 @@ function remObject (ObjectName, IdUser)
 	console.log(ObjectName + IdUser);
 	removeObject(IdUser, ObjectName);
 	window.location = "contact.html?nom=" + Name;
+}
+
+function returnToHome()
+{
+	window.location = "index.html";
 }

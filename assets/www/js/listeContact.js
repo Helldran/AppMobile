@@ -1,4 +1,5 @@
 
+
 // Wait for Cordova to load
 document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -13,23 +14,38 @@ function onDeviceReady() {
 	
 }
 
-
 // onSuccess: Get a snapshot of the current contacts
 
 function onSuccess(contacts) {
-
+	HeightScreen = screen.height;
+	HeightContact = Math.floor((0.85*HeightScreen)/6);
+	HeightTitle = Math.floor((0.07*HeightScreen));
+	HeightFilter = Math.floor((0.08*HeightScreen));
+	
+	codeHeader = '<h1 style="height:'+ HeightTitle + ' px;text-align:center;" >Liste des contacts</h1>';
+	$("#header").append(codeHeader);
+	
     for (var i=0; i<contacts.length; i++)
     {
     	if (contacts[i].photos && contacts[i].photos[0].type == "url") {
-    		code = '<li><a href="contact.html?nom='+ contacts[i].displayName +'" rel="external"><img src="'+contacts[i].photos[0].value+'" class="photo">' + contacts[i].displayName + '</a></li>';
+    		codeContact = '<li style="height:'+ HeightContact + ' px;" >'
+    					 	+ '<a href="#">'
+    					 	+ '<img src="'+contacts[i].photos[0].value+'" class="photo">'
+    					 	+ '<p>' + contacts[i].displayName + '</p></a>'
+    					 	+ '<a "contact.html?nom='+ contacts[i].displayName +'" rel="external">'
+    					 	+ '</li>';
     	}
     	else {
-    		code = '<li><a href="contact.html?nom='+ contacts[i].displayName +'" rel="external"><img src="img/photo.jpg" class="photo">' + contacts[i].displayName + '</a></li>';
+    		codeContact = '<li style="height:'+ HeightContact + 'px;" >'
+    						+ '<a href="#">'
+    						+ '<img src="img/photo.jpg" class="photo">'
+    						+ '<p>' + contacts[i].displayName + '</p></a>'
+    						+ '<a style="width:80px;" href="contact.html?nom='+ contacts[i].displayName +'" rel="external">'
+    						+ '</li>';
     	}
     	
-    	$("#liste_contact").append(code);
+    	$("#liste_contact").append(codeContact);
     }
-    
 	$('#liste_contact').listview('refresh');
 }
 

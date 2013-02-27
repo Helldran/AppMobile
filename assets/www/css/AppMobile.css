@@ -1,7 +1,7 @@
 .photo
 {
-	width: 96px;
-	height: 96px;
+	width: 200px;
+	height: 200px;
 }
 
 .info_contact
@@ -33,4 +33,11 @@
 	border: 1px solid #000000;
 	margin: 15px auto 0 auto;
 	display: block;
+}
+
+p
+{
+	text-align:center;
+	font-size:50px;
+	font-weight:bold;
 }
