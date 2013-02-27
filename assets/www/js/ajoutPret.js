@@ -1,4 +1,5 @@
 var Id;
+var Name;
 
 // Wait for Cordova to load
 document.addEventListener("deviceready", onDeviceReady, false);
@@ -7,10 +8,14 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
 
 	Id = extractUrlParams ("id");
+	Name = extractUrlParams ("nom");
+	console.log(Name);
 	
 }
 
 function addNew()
 {
-	addObject (Id.valueOf(), $("#type").value, $("#name").value, "" );
+	addObject (Id.valueOf(), document.getElementById('type').value,document.getElementById('name').value, "" );
+	alert ("Ajout objet OK");
+	window.location = 'contact.html?nom=' + Name;
 }

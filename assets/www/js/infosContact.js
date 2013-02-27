@@ -1,4 +1,5 @@
 var Id;
+var Name;
 
 // Wait for Cordova to load
 document.addEventListener("deviceready", onDeviceReady, false);
@@ -7,6 +8,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
 
 	Name = extractUrlParams ("nom");
+	console.log(Name);
 	var options = new ContactFindOptions();
 	options.filter= Name;
 	options.multiple = true;
@@ -37,16 +39,17 @@ function onSuccessContact(contacts) {
 	$("#info_contact").append(code);
 	
 	Id = contacts[0].id;
-	console.log("Avant la recherche");
 	searchAllObject (Id.valueOf(), function getInfos(results)
 	{
 		var length = results.rows.length;
-		console.log("la longueur de la table est : " + length);
 		for (var i = 0 ; i < length ; i++)
 		{
-			code = '<li data-icon="delete"><a href=""><img src="img/photo.jpg" class="photo">' + results.rows.item(i).nomObjet + '</a></li>';
+			code = '<li data-icon="delete" onclick = javascript:remObject("' + results.rows.item(i).nomObjet + '",' + Id.valueOf() + ')>'
+					+ '<a href=""><img src="img/photo.jpg" class="photo">' + results.rows.item(i).nomObjet + '</a></li>';
+			console.log(code);
 			$("#liste_objet").append(code);
 		}
+		$('#liste_objet').listview('refresh');
 	});
     
 }
@@ -59,6 +62,12 @@ function onError(contactError) {
 
 function addObject()
 {
-	window.location = "add_object.html?id=" + Id;
+	window.location = "add_object.html?id=" + Id + "&nom=" + Name;
 }
 
+function remObject (ObjectName, IdUser)
+{
+	console.log(ObjectName + IdUser);
+	removeObject(IdUser, ObjectName);
+	window.location = "contact.html?nom=" + Name;
+}

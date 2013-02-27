@@ -50,6 +50,7 @@ function errorAddObjectInDB(err)
 //Retrait d'un élément dans la base de donnée
 function removeObject(idContact, nomObjet)
 {
+	console.log ("Debut remove");
 	var functionRemoveObject = function(tx)
 	{
 		removeObjectInDB(tx, idContact, nomObjet);
@@ -78,31 +79,32 @@ function errorRemoveObjectInDB(err)
 //Recherche d'un élément dans la base de donnée en fonction d'un utilisateur
 function searchAllObject(idContact, callbackFunction)
 {
-	console.log("Avant l'ouverture");
 	var db = window.openDatabase("Database", "1.0", "Base Objet", 200000);
 	
-	console.log("Apres l'ouverture");
 	db.transaction(function(tx)
 	{
-		console.log("functionSearchAllObject");
 		var retour = searchAllObjectInDB(tx, idContact, callbackFunction);
 	}, errorSearchAllObjectInDB);
 }
 
+// Erreur à l'éxecution du retrait de l'objet
+function errorSearchAllObjectInDB(err)
+{
+    alert("Error processing SQL: "+err);
+}
 
 // Recherche d'un objet
 function searchAllObjectInDB(tx, idContact, callbackFunction)
 {
-	var succesForSearch = function(results)
+	var succesForSearch = function(tx, results)
 	{
-		console.log("succesForSearch");
 		succesSearch(results, callbackFunction);
 	}
     tx.executeSql('SELECT * FROM OBJECT WHERE  idContact=' + idContact, [], succesForSearch, errorSearch);
 }
 
 // Erreur à l'éxecution du retrait de l'objet
-function errorSearchAllObjectInDB(err)
+function errorSearch(err)
 {
     alert("Error processing SQL: "+err);
 }
