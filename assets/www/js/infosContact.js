@@ -37,8 +37,17 @@ function onSuccessContact(contacts) {
 	$("#info_contact").append(code);
 	
 	Id = contacts[0].id;
-	searchAllObject (Id, getInfos)
-	
+	console.log("Avant la recherche");
+	searchAllObject (Id.valueOf(), function getInfos(results)
+	{
+		var length = results.rows.length;
+		console.log("la longueur de la table est : " + length);
+		for (var i = 0 ; i < length ; i++)
+		{
+			code = '<li data-icon="delete"><a href=""><img src="img/photo.jpg" class="photo">' + results.rows.item(i).nomObjet + '</a></li>';
+			$("#liste_objet").append(code);
+		}
+	});
     
 }
 
@@ -50,14 +59,6 @@ function onError(contactError) {
 
 function addObject()
 {
-	window.location = "add_object.html?id=Id";
+	window.location = "add_object.html?id=" + Id;
 }
 
-var myFunction = function getInfos(results)
-{
-	var length = results.rows.length;
-	for (var i = 0 ; i < length ; i++)
-	{
-		code = '<li data-icon="delete"><a href=""><img src="img/photo.jpg" class="photo">' + results.rows.item(i).nomObjet + '</a></li>
-	}
-}

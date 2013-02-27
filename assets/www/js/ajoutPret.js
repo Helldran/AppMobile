@@ -12,5 +12,5 @@ function onDeviceReady() {
 
 function addNew()
 {
-	addObject (Id, $("#type").value, $("#name").value, "" );
+	addObject (Id.valueOf(), $("#type").value, $("#name").value, "" );
 }

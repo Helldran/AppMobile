@@ -23,6 +23,7 @@ function addObject(idContact, typeObjet, nomObjet, photoObjet)
 {
 	var functionAddObject = function(tx)
 	{
+		console.log("Id = " + idContact + "      Type = " + typeObjet + "      nom = " + nomObjet);
 		addObjectInDB(tx,idContact, typeObjet, nomObjet, photoObjet);
 	};
 	
@@ -77,14 +78,15 @@ function errorRemoveObjectInDB(err)
 //Recherche d'un élément dans la base de donnée en fonction d'un utilisateur
 function searchAllObject(idContact, callbackFunction)
 {
-	var functionSearchAllObject = function(tx)
-	{
-		var retour = searchAllObjectInDB(tx, idContact, callbackFunction);
-	};
-	
+	console.log("Avant l'ouverture");
 	var db = window.openDatabase("Database", "1.0", "Base Objet", 200000);
 	
-	db.transaction(functionSearchAllObject, errorSearchAllObjectInDB);
+	console.log("Apres l'ouverture");
+	db.transaction(function(tx)
+	{
+		console.log("functionSearchAllObject");
+		var retour = searchAllObjectInDB(tx, idContact, callbackFunction);
+	}, errorSearchAllObjectInDB);
 }
 
 
@@ -93,7 +95,8 @@ function searchAllObjectInDB(tx, idContact, callbackFunction)
 {
 	var succesForSearch = function(results)
 	{
-		succesSearch(results, callbackFunction)
+		console.log("succesForSearch");
+		succesSearch(results, callbackFunction);
 	}
     tx.executeSql('SELECT * FROM OBJECT WHERE  idContact=' + idContact, [], succesForSearch, errorSearch);
 }
