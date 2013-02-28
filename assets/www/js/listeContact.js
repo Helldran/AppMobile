@@ -27,19 +27,21 @@ function onSuccess(contacts) {
 	
     for (var i=0; i<contacts.length; i++)
     {
-    	if (contacts[i].photos && contacts[i].photos[0].type == "url") {
-    		codeContact = '<li style="height:'+ HeightContact + ' px;" >'
+    	if (contacts[i].photos && contacts[i].photos[0].type == "url")
+    	{
+    		codeContact = '<li style="height:' + HeightContact + 'px;">'
     					 	+ '<a href="#">'
-    					 	+ '<img src="'+contacts[i].photos[0].value+'" class="photo">'
-    					 	+ '<p>' + contacts[i].displayName + '</p></a>'
-    					 	+ '<a "contact.html?nom='+ contacts[i].displayName +'" rel="external">'
+    					 	+ '<img src="' + contacts[i].photos[0].value + '" style="width:' + (HeightContact - 25) + 'px; style="height:"' + (HeightContact - 25) + 'px;>'
+    					 	+ '<h2>' + contacts[i].displayName + '</h2></a>'
+    					 	+ '<a style="width:80px;" href="contact.html?nom=' + contacts[i].displayName + '" rel="external">'
     					 	+ '</li>';
     	}
-    	else {
-    		codeContact = '<li style="height:'+ HeightContact + 'px;" >'
+    	else
+    	{
+    		codeContact = '<li style="height:'+ HeightContact + 'px;">'
     						+ '<a href="#">'
-    						+ '<img src="img/photo.jpg" class="photo">'
-    						+ '<p>' + contacts[i].displayName + '</p></a>'
+    						+ '<img src="img/photo.jpg" style="width:' + (HeightContact - 25) + 'px; style="height:"' + (HeightContact - 25) + 'px;>'
+    						+ '<h2>' + contacts[i].displayName + '</h2></a>'
     						+ '<a style="width:80px;" href="contact.html?nom='+ contacts[i].displayName +'" rel="external">'
     						+ '</li>';
     	}
