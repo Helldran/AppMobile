@@ -18,24 +18,29 @@ function onDeviceReady() {
 
 function onSuccessContact(contacts) {
 
-	if (contacts[0].photos && contacts[0].photos[0].type == "url") {
-		code = '<img src="'+contacts[0].photos[0].value+'" class="photo_contact">';
-					}
-	else {
-		code = '<img src="img/photo.jpg" class="photo_contact">';
-				 	
-	}
-	if (contacts[0].phoneNumbers) 
+	if (contacts[0].photos && contacts[0].photos[0].type == "url")
 	{
-		code = code + contacts[0].displayName + '<br>'
-		  		 	+ '<a href="tel:' + contacts[0].phoneNumbers[0].value + '"  data-role="button" data-inline="true">Appeler</a>';
+		code = '<li<img src="'+contacts[0].photos[0].value+'" class="photo_contact">'
+				+ '<h1 class="ui-li-static">' + contacts[0].displayName + '</h1><br>';
 	}
 	else 
 	{
-		code = code + contacts[0].displayName + '<br>';
+		code = '<img src="img/photo.jpg" class="photo_contact">'
+				+ '<h1 class="ui-li-static">' + contacts[0].displayName + '</h1><br>';		 	
+	}
+		
+	if (contacts[0].phoneNumbers) 
+	{
+		code = code + '<a id="btnCall" href="tel:' + contacts[0].phoneNumbers[0].value + '" data-icon="grid" data-role="button" data-inline="true">Appeler</a>';
+	 	
 	}
 	
 	$("#info_contact").append(code);
+	
+	if (contacts[0].phoneNumbers) 
+	{
+		$("#btnCall").button();	 	
+	}
 	
 	Id = contacts[0].id;
 	searchAllObject (Id.valueOf(), function getInfos(results)
@@ -44,14 +49,14 @@ function onSuccessContact(contacts) {
 		for (var i = 0 ; i < length ; i++)
 		{
 			code = '<li>'
-					+ '<a href=""><img src="img/appareil_photo.jpg" class="photo">'
+					+ '<a href=""><img src="img/appareil_photo.jpg" class="apercu_objet">'
 					+ results.rows.item(i).nomObjet + '</a>'
-					+ '<a href="#" onclick="javascript:displayOn()" data-icon="delete"></a>'
-					+ '<div id="popupMenu" data-theme="d" style="display:none;">'
-					+ '<a href="#" onclick="javascript:returnToHome()" data-role="button" data-icon="home">Retour</a>'
-					+ '<a href="#" onclick="javascript:remObject(' +  results.rows.item(i).nomObjet + ',' + Id.valueOf() + ')" data-role="button" data-icon="delete">Supprimer</a>'
-					+ '</div>'
+					+ '<a href="#" onclick="javascript:switchDisplay()" data-icon="gear"></a>'
+					+ '</li>'
+					+ '<li id="lstMenu" style="display:none;">'
+					+ '<a  id="btnRemove" onclick="javascript:remObject(\"' + results.rows.item(i).nomObjet + '\",' + Id.valueOf() + ')" href="#" data-icon="delete" data-role="button" data-inline="true" >Supprimer</a>'
 					+ '</li>';
+			console.log(code);
 			$("#liste_objet").append(code);
 		}
 		$('#liste_objet').listview('refresh');
@@ -72,8 +77,8 @@ function addObject()
 
 function remObject (ObjectName, IdUser)
 {
-	
-	removeObject(IdUser, ObjectName);
+	console.log("debut remobjet");
+	removeObject(IdUser, ObjectName );
 	window.location = "contact.html?nom=" + Name;
 }
 
@@ -82,8 +87,15 @@ function returnToHome()
 	window.location = "index.html";
 }
 
-function displayOn()
+function switchDisplay()
 {
-	var popUp = document.getElementById("popupMenu");
-	popUp.style.display = "block";
+	if (document.getElementById("lstMenu").style.display == "block")
+	{
+		document.getElementById("lstMenu").style.display = "none";
+	}
+	else
+	{
+		document.getElementById("lstMenu").style.display = "block";
+	}
+	$('#btnRemove').button();
 }

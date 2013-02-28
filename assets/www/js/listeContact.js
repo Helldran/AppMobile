@@ -31,8 +31,8 @@ function onSuccess(contacts) {
     	{
     		codeContact = '<li style="height:' + HeightContact + 'px;">'
     					 	+ '<a href="#">'
-    					 	+ '<img src="' + contacts[i].photos[0].value + '" style="width:' + (HeightContact - 25) + 'px; style="height:"' + (HeightContact - 25) + 'px;>'
-    					 	+ '<h2>' + contacts[i].displayName + '</h2></a>'
+    					 	+ '<img class="ui-li-thumb" style="width:' + (HeightContact - 20) + 'px; height:' + (HeightContact - 20) + 'px;" src="' + contacts[i].photos[0].value + '">'
+    					 	+ '<h2 class="ui-li-static" >' + contacts[i].displayName + '</h2></a>'
     					 	+ '<a style="width:80px;" href="contact.html?nom=' + contacts[i].displayName + '" rel="external">'
     					 	+ '</li>';
     	}
@@ -40,8 +40,8 @@ function onSuccess(contacts) {
     	{
     		codeContact = '<li style="height:'+ HeightContact + 'px;">'
     						+ '<a href="#">'
-    						+ '<img src="img/photo.jpg" style="width:' + (HeightContact - 25) + 'px; style="height:"' + (HeightContact - 25) + 'px;>'
-    						+ '<h2>' + contacts[i].displayName + '</h2></a>'
+    						+ '<img class="ui-li-thumb" src="img/photo.jpg" style="width:' + (HeightContact - 20) + 'px; height:' + (HeightContact - 20) + 'px;">'
+    						+ '<h2 class="ui-li-static" >' + contacts[i].displayName + '</h2></a>'
     						+ '<a style="width:80px;" href="contact.html?nom='+ contacts[i].displayName +'" rel="external">'
     						+ '</li>';
     	}
