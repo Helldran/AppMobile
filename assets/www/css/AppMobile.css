@@ -1,3 +1,12 @@
+.ui-li-thumb, .ui-li-icon
+{
+	left:1px;
+	max-height:200px;
+	max-width:200px;
+	position:absolute;
+	top:0px;
+}
+
 .photo
 {
 	width: 200px;
