@@ -58,7 +58,7 @@ function onSuccessContact(contacts) {
 	}
 	
 	Id = contacts[0].id;
-	searchAllObject (Id.valueOf(), function getInfos(results)
+	searchObjectByContactID(Id.valueOf(), function getInfos(results)
 	{
 		var length = results.rows.length;
 		for (var i = 0 ; i < length ; i++)

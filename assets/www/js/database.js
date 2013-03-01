@@ -2,7 +2,7 @@
 function createDatabase()
 {
 	var db = window.openDatabase("Database", "1.0", "Base Objet", 200000);
-	db.transaction(createDB, errorCreateDB);
+	db.transaction(createDB, errorOnExecuteSQL);
 }
 
 // Création de la base de donnée
@@ -12,7 +12,7 @@ function createDB(tx)
 }
 
 // Erreur à la connexion de la base de donnée
-function errorCreateDB(err)
+function errorOnExecuteSQL(err)
 {
     alert("Error processing SQL: "+err);
 }
@@ -29,7 +29,7 @@ function addObject(idContact, typeObjet, nomObjet, photoObjet)
 	
 	var db = window.openDatabase("Database", "1.0", "Base Objet", 200000);
 	
-	db.transaction(functionAddObject, errorAddObjectInDB);
+	db.transaction(functionAddObject, errorOnExecuteSQL);
 }
 
 
@@ -38,12 +38,6 @@ function addObjectInDB(tx, idContact, typeObjet, nomObjet, photoObjet)
 {
      tx.executeSql('INSERT INTO OBJECT (idContact, typeObjet, nomObjet, photoObjet)'+
      				'VALUES (' + idContact + ',"' + typeObjet + '","' + nomObjet + '","' + photoObjet + '")');
-}
-
-// Erreur à l'ajout d'un objet
-function errorAddObjectInDB(err)
-{
-    alert("Error processing SQL: "+err);
 }
 
 
@@ -58,7 +52,7 @@ function removeObject(idContact, nomObjet)
 	
 	var db = window.openDatabase("Database", "1.0", "Base Objet", 200000);
 	
-	db.transaction(functionRemoveObject, errorRemoveObjectInDB);
+	db.transaction(functionRemoveObject, errorOnExecuteSQL);
 }
 
 
@@ -68,49 +62,54 @@ function removeObjectInDB(tx, idContact, nomObjet)
      tx.executeSql('DELETE FROM OBJECT WHERE  idContact=' + idContact + ' AND nomObjet="' + nomObjet + '"');
 }
 
-// Erreur à l'éxecution du retrait de l'objet
-function errorRemoveObjectInDB(err)
-{
-    alert("Error processing SQL: "+err);
-}
-
 
 
 //Recherche d'un élément dans la base de donnée en fonction d'un utilisateur
-function searchAllObject(idContact, callbackFunction)
+function searchObjectByContactID(idContact, callbackFunction)
 {
 	var db = window.openDatabase("Database", "1.0", "Base Objet", 200000);
 	
 	db.transaction(function(tx)
 	{
-		var retour = searchAllObjectInDB(tx, idContact, callbackFunction);
-	}, errorSearchAllObjectInDB);
-}
-
-// Erreur à l'éxecution du retrait de l'objet
-function errorSearchAllObjectInDB(err)
-{
-    alert("Error processing SQL: "+err);
+		searchObjectByContactIDInDB(tx, idContact, callbackFunction);
+	}, errorOnExecuteSQL);
 }
 
 // Recherche d'un objet
-function searchAllObjectInDB(tx, idContact, callbackFunction)
+function searchObjectByContactIDInDB(tx, idContact, callbackFunction)
 {
 	var succesForSearch = function(tx, results)
 	{
 		succesSearch(results, callbackFunction);
 	}
-    tx.executeSql('SELECT * FROM OBJECT WHERE  idContact=' + idContact, [], succesForSearch, errorSearch);
-}
-
-// Erreur à l'éxecution du retrait de l'objet
-function errorSearch(err)
-{
-    alert("Error processing SQL: "+err);
+    tx.executeSql('SELECT * FROM OBJECT WHERE  idContact=' + idContact, [], succesForSearch, errorOnExecuteSQL);
 }
 
 //Fonction envoyant les résultat à la fonction de calllback
 function succesSearch(results, callbackFunction)
 {
 	callbackFunction(results);
+}
+
+
+
+//Recherche tout les éléments objets dans la base
+function searchAllObject(callbackFunction)
+{
+	var db = window.openDatabase("Database", "1.0", "Base Objet", 200000);
+	
+	db.transaction(function(tx)
+	{
+		searchAllObjectInDB(tx, callbackFunction);
+	}, errorOnExecuteSQL);
+}
+
+
+function searchAllObjectInDB(tx, callbackFunction)
+{
+	var succesForSearch = function(tx, results)
+	{
+		callbackFunction(results);
+	}
+    tx.executeSql('SELECT * FROM OBJECT ORDER BY typeObjet ASC', [], succesForSearch, errorOnExecuteSQL);
 }
