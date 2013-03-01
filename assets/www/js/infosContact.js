@@ -8,6 +8,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
 	
 	Name = extractUrlParams ("nom");
+	console.log("Le nom est " + Name);
 	var options = new ContactFindOptions();
 	options.filter= Name;
 	options.multiple = true;
@@ -22,6 +23,15 @@ function onSuccessContact(contacts) {
 	HeightContact = Math.floor((0.85*HeightScreen)/6);
 	HeightTitle = Math.floor((0.07*HeightScreen));
 	HeightFilter = Math.floor((0.08*HeightScreen));
+	
+	codeHeader = '<a id="btnHome" href="#" onclick="javascript:returnToHome()" data-icon="home" class="ui-btn-left">Accueil</a>'
+					+ '<h1 style="height:'+ HeightTitle + ' px;text-align:center;">Contact</h1>'
+					+ '<a id="btnAdd" href="#" onclick="javascript:addObject()" data-icon="plus" class="ui-btn-right" >Ajouter</a>';
+					
+	$("#header").append(codeHeader);
+	$("#btnHome").button();
+	$("#btnAdd").button();
+	
 	
 	if (contacts[0].photos && contacts[0].photos[0].type == "url")
 	{
@@ -53,16 +63,14 @@ function onSuccessContact(contacts) {
 		var length = results.rows.length;
 		for (var i = 0 ; i < length ; i++)
 		{
-			console.log (results.rows.item(i).photoObjet);
-			code = '<li>'
-					+ '<a href=""><img src="' + results.rows.item(i).photoObjet + '" class="apercu_objet">'
-					+ results.rows.item(i).nomObjet + '</a>'
-					+ '<a href="#" onclick="javascript:switchDisplay()" data-icon="gear"></a>'
+			code = '<li style="height:' + HeightContact + 'px;">'
+					+ '<a href=""><img src="' + results.rows.item(i).photoObjet + '" style="width:' + (HeightContact - 20) + 'px; height:' + (HeightContact - 20) + 'px;">'
+					+ '<h2 class="ui-li-static" >' + results.rows.item(i).nomObjet + '</h2></a>'
+					+ '<a href="#" onclick="javascript:switchDisplay(' + i + ')" data-icon="gear"></a>'
 					+ '</li>'
-					+ '<li id="lstMenu" style="display:none;">'
-					+ '<a  id="btnRemove" onclick="javascript:remObject(' + Id.valueOf() + ',\'' + results.rows.item(i).nomObjet + '\')" href="#" data-icon="delete" data-role="button" data-inline="true" >Supprimer</a>'
+					+ '<li id="lstMenu' + i + '" style="display:none;">'
+					+ '<a  id="btnRemove' + i + '" onclick="javascript:remObject(' + Id.valueOf() + ',\'' + results.rows.item(i).nomObjet + '\')" href="#" data-icon="delete" data-role="button" data-inline="true" >Supprimer</a>'
 					+ '</li>';
-			console.log(code);
 			$("#liste_objet").append(code);
 		}
 		$('#liste_objet').listview('refresh');
@@ -83,7 +91,6 @@ function addObject()
 
 function remObject (IdUser, ObjectName)
 {
-	console.log("debut remobjet");
 	removeObject(IdUser, ObjectName );
 	window.location = "contact.html?nom=" + Name;
 }
@@ -93,15 +100,15 @@ function returnToHome()
 	window.location = "index.html";
 }
 
-function switchDisplay()
+function switchDisplay(i)
 {
-	if (document.getElementById("lstMenu").style.display == "block")
+	if (document.getElementById("lstMenu" + i).style.display == "block")
 	{
-		document.getElementById("lstMenu").style.display = "none";
+		document.getElementById("lstMenu" + i).style.display = "none";
 	}
 	else
 	{
-		document.getElementById("lstMenu").style.display = "block";
+		document.getElementById("lstMenu" + i).style.display = "block";
 	}
-	$('#btnRemove').button();
+	$('#btnRemove' + i).button();
 }

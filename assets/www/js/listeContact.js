@@ -20,7 +20,6 @@ function onSuccess(contacts) {
 	HeightScreen = screen.height;
 	HeightContact = Math.floor((0.85*HeightScreen)/6);
 	HeightTitle = Math.floor((0.07*HeightScreen));
-	HeightFilter = Math.floor((0.08*HeightScreen));
 	
 	codeHeader = '<h1 style="height:'+ HeightTitle + ' px;text-align:center;" >Liste des contacts</h1>';
 	$("#header").append(codeHeader);
