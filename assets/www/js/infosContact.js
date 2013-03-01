@@ -54,7 +54,7 @@ function onSuccessContact(contacts) {
 					+ '<a href="#" onclick="javascript:switchDisplay()" data-icon="gear"></a>'
 					+ '</li>'
 					+ '<li id="lstMenu" style="display:none;">'
-					+ '<a  id="btnRemove" onclick="javascript:remObject(\"' + results.rows.item(i).nomObjet + '\",' + Id.valueOf() + ')" href="#" data-icon="delete" data-role="button" data-inline="true" >Supprimer</a>'
+					+ '<a  id="btnRemove" onclick="javascript:remObject(' + Id.valueOf() + ',\'' + results.rows.item(i).nomObjet + '\')" href="#" data-icon="delete" data-role="button" data-inline="true" >Supprimer</a>'
 					+ '</li>';
 			console.log(code);
 			$("#liste_objet").append(code);
@@ -75,7 +75,7 @@ function addObject()
 	window.location = "add_object.html?id=" + Id + "&nom=" + Name;
 }
 
-function remObject (ObjectName, IdUser)
+function remObject (IdUser, ObjectName)
 {
 	console.log("debut remobjet");
 	removeObject(IdUser, ObjectName );
