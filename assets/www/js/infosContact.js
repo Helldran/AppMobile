@@ -6,7 +6,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 // Cordova is ready
 function onDeviceReady() {
-
+	
 	Name = extractUrlParams ("nom");
 	var options = new ContactFindOptions();
 	options.filter= Name;
@@ -18,6 +18,11 @@ function onDeviceReady() {
 
 function onSuccessContact(contacts) {
 
+	HeightScreen = screen.height;
+	HeightContact = Math.floor((0.85*HeightScreen)/6);
+	HeightTitle = Math.floor((0.07*HeightScreen));
+	HeightFilter = Math.floor((0.08*HeightScreen));
+	
 	if (contacts[0].photos && contacts[0].photos[0].type == "url")
 	{
 		code = '<li<img src="'+contacts[0].photos[0].value+'" class="photo_contact">'
@@ -48,8 +53,9 @@ function onSuccessContact(contacts) {
 		var length = results.rows.length;
 		for (var i = 0 ; i < length ; i++)
 		{
+			console.log (results.rows.item(i).photoObjet);
 			code = '<li>'
-					+ '<a href=""><img src="img/appareil_photo.jpg" class="apercu_objet">'
+					+ '<a href=""><img src="' + results.rows.item(i).photoObjet + '" class="apercu_objet">'
 					+ results.rows.item(i).nomObjet + '</a>'
 					+ '<a href="#" onclick="javascript:switchDisplay()" data-icon="gear"></a>'
 					+ '</li>'

@@ -15,7 +15,7 @@ function onDeviceReady() {
 
 function addNew()
 {
-	addObject (Id.valueOf(), document.getElementById('type').value,document.getElementById('name').value, "" );
+	addObject (Id.valueOf(), document.getElementById('type').value,document.getElementById('name').value, $('#photo_jeu').attr("src") );
 	alert ("Ajout objet OK");
 	window.location = 'contact.html?nom=' + Name;
 }
