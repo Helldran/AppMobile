@@ -8,7 +8,6 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
 	
 	Name = extractUrlParams ("nom");
-	console.log("Le nom est " + Name);
 	var options = new ContactFindOptions();
 	options.filter= Name;
 	options.multiple = true;
@@ -35,7 +34,7 @@ function onSuccessContact(contacts) {
 	
 	if (contacts[0].photos && contacts[0].photos[0].type == "url")
 	{
-		code = '<li<img src="'+contacts[0].photos[0].value+'" class="photo_contact">'
+		code = '<img src="'+contacts[0].photos[0].value+'" class="photo_contact">'
 				+ '<h1 class="ui-li-static">' + contacts[0].displayName + '</h1><br>';
 	}
 	else 

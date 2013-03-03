@@ -8,7 +8,7 @@ function createDatabase()
 // Création de la base de donnée
 function createDB(tx)
 {
-    tx.executeSql('CREATE TABLE IF NOT EXISTS OBJECT (idObject integer primary key autoincrement, idContact, typeObjet, nomObjet, photoObjet)');
+    tx.executeSql('CREATE TABLE IF NOT EXISTS OBJECT (idObject integer primary key autoincrement, idContact, nameContact, typeObjet, nomObjet, photoObjet)');
 }
 
 // Erreur à la connexion de la base de donnée
@@ -19,12 +19,11 @@ function errorOnExecuteSQL(err)
 
 
 //Ajout d'un élément dans la base de donnée
-function addObject(idContact, typeObjet, nomObjet, photoObjet)
+function addObject(idContact, nameContact, typeObjet, nomObjet, photoObjet)
 {
 	var functionAddObject = function(tx)
 	{
-		console.log("Id = " + idContact + "      Type = " + typeObjet + "      nom = " + nomObjet);
-		addObjectInDB(tx,idContact, typeObjet, nomObjet, photoObjet);
+		addObjectInDB(tx,idContact, nameContact, typeObjet, nomObjet, photoObjet);
 	};
 	
 	var db = window.openDatabase("Database", "1.0", "Base Objet", 200000);
@@ -34,10 +33,10 @@ function addObject(idContact, typeObjet, nomObjet, photoObjet)
 
 
 // Ajout d'un objet
-function addObjectInDB(tx, idContact, typeObjet, nomObjet, photoObjet)
+function addObjectInDB(tx, idContact, nameContact, typeObjet, nomObjet, photoObjet)
 {
-     tx.executeSql('INSERT INTO OBJECT (idContact, typeObjet, nomObjet, photoObjet)'+
-     				'VALUES (' + idContact + ',"' + typeObjet + '","' + nomObjet + '","' + photoObjet + '")');
+     tx.executeSql('INSERT INTO OBJECT (idContact, nameContact, typeObjet, nomObjet, photoObjet)'+
+     				'VALUES (' + idContact + ',"' + nameContact + '","' + typeObjet + '","' + nomObjet + '","' + photoObjet + '")');
 }
 
 
@@ -85,7 +84,7 @@ function searchObjectByContactIDInDB(tx, idContact, callbackFunction)
     tx.executeSql('SELECT * FROM OBJECT WHERE  idContact=' + idContact, [], succesForSearch, errorOnExecuteSQL);
 }
 
-//Fonction envoyant les résultat à la fonction de calllback
+//Fonction envoyant les résultat à la fonction de callback
 function succesSearch(results, callbackFunction)
 {
 	callbackFunction(results);
@@ -112,4 +111,25 @@ function searchAllObjectInDB(tx, callbackFunction)
 		callbackFunction(results);
 	}
     tx.executeSql('SELECT * FROM OBJECT ORDER BY typeObjet ASC', [], succesForSearch, errorOnExecuteSQL);
+}
+
+//Recherche un objets dans la base
+function searchObject(nomObjet, callbackFunction)
+{
+	var db = window.openDatabase("Database", "1.0", "Base Objet", 200000);
+	db.transaction(function(tx)
+	{
+		searchObjectInDB(tx, nomObjet, callbackFunction);
+	}, errorOnExecuteSQL);
+}
+
+
+function searchObjectInDB(tx, nomObjet, callbackFunction)
+{
+	var succesForSearch = function(tx, results)
+	{
+		callbackFunction(results);
+	}
+	console.log("Le nom de l'ojet rechercher est " + nomObjet);
+	tx.executeSql('SELECT * FROM OBJECT WHERE  nomObjet=' + nomObjet, [], succesForSearch, errorOnExecuteSQL);
 }

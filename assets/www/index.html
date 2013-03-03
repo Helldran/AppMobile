@@ -12,7 +12,6 @@
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/jquery.mobile.js"></script>
         <script type="text/javascript" src="cordova-2.4.0.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript" src="js/listeContact.js"></script>
 		<script type="text/javascript" src="js/database.js"></script>
 		<script type="text/javascript" src="js/listeObjet.js"></script>
@@ -30,11 +29,11 @@
 		        </div><!-- /navbar -->
 			</div>
 			<div data-role="content">
-				<div id="divListeConctact">
+				<div id="divListeContact">
 					<ul id="liste_contact" data-role="listview" data-filter="true" data-split-icon="arrow-r" data-split-theme="b" data-inset="true">
 					</ul>			
 				</div>
-				<div id="divListeObjet" style="visibility:hidden">
+				<div id="divListeObjet" style="display:none;">
 					<ul id="liste_objet" data-role="listview" data-split-icon="arrow-r" data-split-theme="b" data-inset="true">
 					</ul>			
 				</div>
@@ -46,16 +45,17 @@
             createDatabase();
 			
 			function switchDisplay(value)
-			{
+			{	
 				if (value == 1)
 				{
-					$("#divListe_objet").show();
-					$("#divListe_contact").hide();
+					$("#divListeObjet").show();
+					$("#divListeContact").hide();
+					
 				}
 				else
 				{
-					$("#divListe_objet").hide();
-					$("#divListe_contact").show();
+					$("#divListeObjet").hide();
+					$("#divListeContact").show();
 				}
 			}
         </script>

@@ -12,7 +12,6 @@
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/jquery.mobile.js"></script>
         <script type="text/javascript" src="cordova-2.4.0.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/parameter.js"></script>
         <script type="text/javascript" src="js/database.js"></script>
 		<script type="text/javascript" src="js/ajoutPret.js"></script>
@@ -31,12 +30,14 @@
 
 				<form>
 				
-					 <label for="name">Nom :</label>
-					 <input name="name" id="name" value="" type="text">
+					 <label for="name" style="font-size:30px;">Nom :</label>
+					 <input name="name" id="name" value="" type="text" style="height:50px; font-size:20px;">
 					 
-					 <label for="type">Type :</label>
-					 <input name="type" id="type" value="" type="text">
-					 
+					 <label for="type" style="font-size:30px;">Type :</label>
+					 <input name="type" id="type" value="" type="text" style="height:50px; font-size:20px;" onclick="javascript:choixType()">
+					 <div id="divAddPret" data-role="fieldcontain">
+				 	 </div>
+					 <p style="text-align:center; font-weight:bold; font-size:20px;"> Cliquez sur l'appareil pour prendre une photo</p>
 					 <a href="" onClick="getPhoto('#photo_jeu')"><img src="img/appareil_photo.jpg" id="photo_jeu" class="photo_jeu"></a>
 				</form>
 
@@ -44,5 +45,5 @@
 			
 		</div><!-- /page -->
 
-	</body>
+		</body>
 </html>
